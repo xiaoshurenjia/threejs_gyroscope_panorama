@@ -1,0 +1,10 @@
+http://www.krpano360.com/
+
+natapp -authtoken=
+
+window.addEventListener('deviceorientation', function(e){
+   console.log('absolute: ' + e.absolute)
+   console.log('alpha: ' + e.alpha)
+   console.log('beta: ' + e.beta)
+   console.log('gamma: ' + e.gamma)
+});
