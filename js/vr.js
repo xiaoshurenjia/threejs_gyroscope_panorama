@@ -37,7 +37,7 @@
         function initControls() {
             Controls = new THREE.OrbitControls(Camera);
         }
-        
+
         // 初始化陀螺仪
         function initDevices() {
             Devices = new THREE.DeviceOrientationControls(Camera);
@@ -45,6 +45,8 @@
             console.log("initDevices")
             
             console.log(typeof (DeviceOrientationEvent.requestPermission))
+            
+            alert(typeof (DeviceOrientationEvent.requestPermission));
 
             // 苹果手机申请陀螺仪权限
             if (DeviceOrientationEvent && typeof (DeviceOrientationEvent.requestPermission) === "function") {
