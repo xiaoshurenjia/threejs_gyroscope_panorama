@@ -48,9 +48,11 @@
 			if (permissionState === 'granted') {
 			    // handle data
 			    alert("handle data");
+                console.log("handle data")
 			} else {
 			    // handle denied
 			    alert("handle denied");
+                console.log("handle denied");
 			}
 		    })
 		    .catch((err) => {
@@ -59,9 +61,9 @@
 	    } else {
 		// han
 		console.log(typeof DeviceOrientationEvent)
-	    }
-	    
+	    }    
     }
+
     /* 窗口改变事件 */
     function windowChange() {
         initCamera();
