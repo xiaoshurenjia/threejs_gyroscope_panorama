@@ -141,17 +141,17 @@
         var img = "sun.jpg";
         $(".prev").tap(function () {
             index++;
+            alert(".prev");
             if (index == 1) {
                 addimg("snow.jpg");
             }
-            alert(".prev");
         })
         $(".next").tap(function () {
             index--;
+            alert(".next");
             if (index == 0) {
                 addimg("sun.jpg");
             }
-            alert(".next");
         })
 
         init();
