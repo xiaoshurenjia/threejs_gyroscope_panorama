@@ -70,6 +70,7 @@
             } else {
                 // han
                 console.log("DeviceOrientationEvent.requestPermission : "  + typeof DeviceOrientationEvent)
+                alert("DeviceOrientationEvent.requestPermission : "  + typeof DeviceOrientationEvent);
             }
         }
 
