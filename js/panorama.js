@@ -32,7 +32,7 @@ $.fn.panorama =function (CanvasBody,img) {
    
     // 初始化陀螺仪
     function initDevices() {
-        Devices = new THREE.DeviceOrientationControls(Camera);    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+        Devices = new THREE.DeviceOrientationControls(Camera);
        // 申请陀螺仪权限
        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
        DeviceOrientationEvent.requestPermission()
