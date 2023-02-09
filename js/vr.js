@@ -45,13 +45,14 @@
             console.log("initDevices")
             
             console.log(typeof (DeviceOrientationEvent.requestPermission))
-            
+
             alert(typeof (DeviceOrientationEvent.requestPermission));
 
             // 苹果手机申请陀螺仪权限
             if (DeviceOrientationEvent && typeof (DeviceOrientationEvent.requestPermission) === "function") {
                 DeviceOrientationEvent.requestPermission()
                     .then(permissionState => {
+
                         if (permissionState === 'granted') {
                             // handle data
                             alert("handle data");
@@ -63,7 +64,8 @@
                         }
                     })
                     .catch((err) => {
-                        console.log(err)
+                        console.log(err);
+                        alert("requestPermission failed: ", err);
                     });
             } else {
                 // han
