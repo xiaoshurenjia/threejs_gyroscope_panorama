@@ -48,30 +48,32 @@
 
             alert(typeof (DeviceOrientationEvent.requestPermission));
 
-            // 苹果手机申请陀螺仪权限
-            if (DeviceOrientationEvent && typeof (DeviceOrientationEvent.requestPermission) === "function") {
-                DeviceOrientationEvent.requestPermission()
-                    .then(permissionState => {
+            // // 苹果手机申请陀螺仪权限
+            // if (DeviceOrientationEvent && typeof (DeviceOrientationEvent.requestPermission) === "function") {
+            //     DeviceOrientationEvent.requestPermission()
+            //         .then(permissionState => {
 
-                        if (permissionState === 'granted') {
-                            // handle data
-                            alert("handle data");
-                            console.log("handle data")
-                        } else {
-                            // handle denied
-                            alert("handle denied");
-                            console.log("handle denied");
-                        }
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                        alert("requestPermission failed: " + err);
-                    });
-            } else {
-                // han
-                console.log("DeviceOrientationEvent.requestPermission : " + typeof DeviceOrientationEvent)
-                alert("DeviceOrientationEvent.requestPermission : " + typeof DeviceOrientationEvent);
-            }
+            //             if (permissionState === 'granted') {
+            //                 // handle data
+            //                 alert("handle data");
+            //                 console.log("handle data")
+            //             } else {
+            //                 // handle denied
+            //                 alert("handle denied");
+            //                 console.log("handle denied");
+            //             }
+            //         })
+            //         .catch((err) => {
+            //             console.log(err);
+            //             alert("requestPermission failed: " + err);
+            //         });
+            // } else {
+            //     // han
+            //     console.log("DeviceOrientationEvent.requestPermission : " + typeof DeviceOrientationEvent)
+            //     alert("DeviceOrientationEvent.requestPermission : " + typeof DeviceOrientationEvent);
+            // }
+
+
         }
 
         /* 窗口改变事件 */
@@ -142,14 +144,16 @@
             if (index == 1) {
                 addimg("snow.jpg");
             }
+            alert(".prev");
         })
         $(".next").tap(function () {
             index--;
             if (index == 0) {
                 addimg("sun.jpg");
             }
-
+            alert(".next");
         })
+
         init();
 
         /* 场景内物体 */

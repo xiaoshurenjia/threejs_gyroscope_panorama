@@ -1,202 +1,238 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<meta name="renderer" content="webkit">
-<script>
-"use strict";(function(_window){var navigatorUserAgent=navigator.userAgent;var iPhone=navigatorUserAgent.indexOf("iPhone");if(iPhone>-1){var dpr=Number(window.devicePixelRatio),one_dpr=1/dpr}else{var dpr=1,one_dpr=1}var writeText="<meta name=\"viewport\" content=\"width=device-width,initial-scale="+one_dpr+",maximum-scale="+one_dpr+",minimum-scale="+one_dpr+",user-scalable=no\">\n        <meta name=\"'flexible\" content=\"initial-dpr="+dpr+"\">";document.write(writeText);var html=document.getElementsByTagName("html");var F0=75;html[0].setAttribute("data-dpr",dpr);var getFontSize=function getFontSize(){var windowWidth=window.innerWidth;html[0].style.fontSize=F0*windowWidth/750+"px"};getFontSize();_window.addEventListener("resize",getFontSize,false)})(window);
-</script>
-<style>
-body {margin: 0;}
-html, body, #CanvasBody {width: 100%;height: 100%;overflow: hidden;}
-#CanvasBody {position: relative;}
-/*#onDevice {position: absolute;bottom: 0;right: 0;z-index: 2;padding: 12px 18px;font-size: 20px;border: 1px solid #ddd;background-color: #fff;cursor: pointer;-webkit-appearance: none;}*/
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <script>
+        "use strict";
+        (function (_window) {
+            var navigatorUserAgent = navigator.userAgent;
+            var iPhone = navigatorUserAgent.indexOf("iPhone");
+            if (iPhone > -1) {
+                var dpr = Number(window.devicePixelRatio), one_dpr = 1 / dpr
+            }
+            else {
+                var dpr = 1, one_dpr = 1
+            }
+            var writeText = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=" + one_dpr + ",maximum-scale=" + one_dpr + ",minimum-scale=" + one_dpr + ",user-scalable=no\">\n        <meta name=\"'flexible\" content=\"initial-dpr=" + dpr + "\">";
+            document.write(writeText);
+            var html = document.getElementsByTagName("html");
+            var F0 = 75; html[0].setAttribute("data-dpr", dpr);
+            var getFontSize = function getFontSize() {
+                var windowWidth = window.innerWidth;
+                html[0].style.fontSize = F0 * windowWidth / 750 + "px"
+            };
+            getFontSize();
+            _window.addEventListener("resize", getFontSize, false)
+        })(window);
+    </script>
 
-.marker-div .img-one{
-	
-	width: 30%;
-}
-.prev{
-	background-image: url(images/arrows.png);
-    width: 60px;
-    height: 75px;
-    background-position: 4px 4px;
-    background-repeat: no-repeat;
-    position: absolute;
-    z-index: 99;
-    top: 45%;
-    left: 0px;
-}
-.next{
-	background-image: url(images/arrows.png);
-    width: 60px;
-    height: 75px;
-    background-position: -83px 4px;
-    background-repeat: no-repeat;
-    position: absolute;
-    z-index: 99;
-    top: 45%;
-    right: 0px;
-}
+    <style>
+        body {
+            margin: 0;
+        }
 
-</style>
+        html,
+        body,
+        #CanvasBody {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #CanvasBody {
+            position: relative;
+        }
+
+        /*#onDevice {position: absolute;bottom: 0;right: 0;z-index: 2;padding: 12px 18px;font-size: 20px;border: 1px solid #ddd;background-color: #fff;cursor: pointer;-webkit-appearance: none;}*/
+
+        .marker-div .img-one {
+
+            width: 30%;
+        }
+
+        .prev {
+            background-image: url(images/arrows.png);
+            width: 60px;
+            height: 75px;
+            background-position: 4px 4px;
+            background-repeat: no-repeat;
+            position: absolute;
+            z-index: 99;
+            top: 45%;
+            left: 0px;
+        }
+
+        .next {
+            background-image: url(images/arrows.png);
+            width: 60px;
+            height: 75px;
+            background-position: -83px 4px;
+            background-repeat: no-repeat;
+            position: absolute;
+            z-index: 99;
+            top: 45%;
+            right: 0px;
+        }
+    </style>
 </head>
+
 <body>
-<div id="CanvasBody">
-	<div id="onDevice"></div>
-	<!--<input id="onDevice" type="button" value="">-->
-	<img src="hand.gif" style="width: 4%;position: absolute;left: 48%;top: 48%;"/>
-		<div class="prev"></div>
-		<div class="next"></div>
-</div>
-<script src="js/three.min.js"></script>
-<script src="js/Stats.min.js"></script>
-<script type="text/javascript" src="js/zepto.min.js" ></script>
-<script type="text/javascript" src="js/touch.js" ></script>
-<script type="text/javascript" src="js/vr.js" ></script>
-<!-- 鼠标控制 （OrbitControls.js） -->
-<script type="text/javascript" src="js/OrbitControls.js" ></script>
-<!-- 控制陀螺仪 （DeviceOrientationControls.js） -->
-<script type="text/javascript" src="js/DeviceOrientationControls.js" ></script>
-<!-- 代码 -->
-<script>
-"use strict";
-//(function (CanvasBody, _window) {
-//  var Scene = void 0,
-//      Camera = void 0,
-//      Renderer = void 0,
-//      FpsStats = void 0,
-//      AnimateFrame = void 0,
-//      Controls = void 0,
-//      Devices = void 0; // 场景，照相机，渲染器，FPS监视器，渲染定时器，控制器，陀螺仪
-//  var onDevice = document.getElementById("onDevice");
-//  var isDeviceing = 1; // 陀螺仪状态
-//  /* 初始化函数 */
-//  // 初始化场景
-//  function initScene() {
-//      Scene = new THREE.Scene();
-//  }
-//  // 初始化照相机
-//  function initCamera() {
-//      Camera = new THREE.PerspectiveCamera(60, CanvasBody.clientWidth / CanvasBody.clientHeight, 1, 3000);
-//      Camera.position.set(1, 0, 0);
-//      Camera.lookAt({ x: 200, y: 0, z: 0 });
-//  }
-//  // 初始化渲染器
-//  function initRenderer() {
-//      Renderer = new THREE.WebGLRenderer();
-//      Renderer.setSize(CanvasBody.clientWidth, CanvasBody.clientHeight);
-//      Renderer.setClearColor(0x000000, 1);
-//      CanvasBody.appendChild(Renderer.domElement);
-//  }
-//  // 初始化监视器
-//  function initFpsStats() {
-//      FpsStats = new Stats();
-////      CanvasBody.appendChild(FpsStats.domElement);
-////      FpsStats.domElement.style.cssText = "position: absolute;top: 0;left: 0;";
-//  }
-//  // 初始化控制器
-//  function initControls() {
-//      Controls = new THREE.OrbitControls(Camera);
-//  }
-//  // 初始化陀螺仪
-//  function initDevices() {
-//      Devices = new THREE.DeviceOrientationControls(Camera);
-//  }
-//  /* 窗口改变事件 */
-//  function windowChange() {
-//      initCamera();
-//      Renderer.setSize(CanvasBody.clientWidth, CanvasBody.clientHeight);
-//      initDevices();
-//      initControls();
-//  }
-//  /* 控制陀螺仪 */
-//  function controlDevice(event) {
-//      if (isDeviceing === 0) {
-//          isDeviceing = 1;
-//      } else {
-//          isDeviceing = 0;
-//      }
-//  }
-//  /* 动画 */
-//  function animate(time) {
-//      Renderer.clear();
-//      isDeviceing === 0 ? Controls.update() : Devices.update();
-//      Renderer.render(Scene, Camera);
-//      AnimateFrame = requestAnimationFrame(animate);
-//  }
-//    function addimg(image){
-//  		var r = Math.sqrt(5000 * 1827 / 4 / Math.PI);
-//      var texture = THREE.ImageUtils.loadTexture(image, {}, function () {
-//          var geometry = new THREE.SphereGeometry(r, 100, 100);
-//          var material = new THREE.MeshLambertMaterial({
-//              map: texture,
-//              side: THREE.DoubleSide
-//          });
-//          var mesh = new THREE.Mesh(geometry, material);
-//          Scene.add(mesh);
-//          mesh.position.set(0, 0, 0);
-//         
-//      });
-//  }
-//  /* 初始化 */
-//  function init() {
-//      // 初始化
-//      initScene();
-//      initCamera();
-//      initRenderer();
-//      initControls();
-//      initDevices();
-//      // 初始化绑定陀螺仪
-//      Devices.connect();
-//      _window.addEventListener("resize", windowChange, false);
-//      onDevice.addEventListener("click", controlDevice, false);
-//      AnimateFrame = requestAnimationFrame(animate);
-//     
-//  }
-//    $('body').bind("touchstart",function(event){
-//			isDeviceing=0;
-//		})
-//    $('body').bind("touchend",function(){
-//	  	
-//			isDeviceing=1;
-//	  });
-//	  var index=0;
-//	  var img="sun.jpg";
-//	  $(".prev").tap(function(){
-//	  	index++;
-//	  	if(index==1){
-//	  		addimg("snow.jpg");
-//	  	}
-//	  })
-//	   $(".next").tap(function(){
-//	   	index--;
-//	   	if(index==0){
-//	   		addimg("sun.jpg");
-//	   	}
-//	  	
-//	  })
-//  init();
-//  
-//  /* 场景内物体 */
-//  (function () {
-//  		
-// 	
-//    addimg("sun.jpg");
-//    var al = new THREE.AmbientLight(0xffffff);
-//          Scene.add(al); 
-//  })();
-//
-//})(document.getElementById("CanvasBody"), window);
-var index=0;
-$(function(){
-	  var img="sun.jpg";
-	  if(index==0){
-		$("#CanvasBody").vr(img);
-	}
-  
-       
-})
-</script>
+    <div id="CanvasBody">
+        <div id="onDevice"></div>
+        <!--<input id="onDevice" type="button" value="">-->
+        <img src="hand.gif" style="width: 4%;position: absolute;left: 48%;top: 48%;" />
+        <div class="prev"></div>
+        <div class="next"></div>
+    </div>
+    <script src="js/three.min.js"></script>
+    <script src="js/Stats.min.js"></script>
+    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/touch.js"></script>
+    <script type="text/javascript" src="js/vr.js"></script>
+    <!-- 鼠标控制 （OrbitControls.js） -->
+    <script type="text/javascript" src="js/OrbitControls.js"></script>
+    <!-- 控制陀螺仪 （DeviceOrientationControls.js） -->
+    <script type="text/javascript" src="js/DeviceOrientationControls.js"></script>
+    <!-- 代码 -->
+    <script>
+        "use strict";
+        //(function (CanvasBody, _window) {
+        //  var Scene = void 0,
+        //      Camera = void 0,
+        //      Renderer = void 0,
+        //      FpsStats = void 0,
+        //      AnimateFrame = void 0,
+        //      Controls = void 0,
+        //      Devices = void 0; // 场景，照相机，渲染器，FPS监视器，渲染定时器，控制器，陀螺仪
+        //  var onDevice = document.getElementById("onDevice");
+        //  var isDeviceing = 1; // 陀螺仪状态
+        //  /* 初始化函数 */
+        //  // 初始化场景
+        //  function initScene() {
+        //      Scene = new THREE.Scene();
+        //  }
+        //  // 初始化照相机
+        //  function initCamera() {
+        //      Camera = new THREE.PerspectiveCamera(60, CanvasBody.clientWidth / CanvasBody.clientHeight, 1, 3000);
+        //      Camera.position.set(1, 0, 0);
+        //      Camera.lookAt({ x: 200, y: 0, z: 0 });
+        //  }
+        //  // 初始化渲染器
+        //  function initRenderer() {
+        //      Renderer = new THREE.WebGLRenderer();
+        //      Renderer.setSize(CanvasBody.clientWidth, CanvasBody.clientHeight);
+        //      Renderer.setClearColor(0x000000, 1);
+        //      CanvasBody.appendChild(Renderer.domElement);
+        //  }
+        //  // 初始化监视器
+        //  function initFpsStats() {
+        //      FpsStats = new Stats();
+        ////      CanvasBody.appendChild(FpsStats.domElement);
+        ////      FpsStats.domElement.style.cssText = "position: absolute;top: 0;left: 0;";
+        //  }
+        //  // 初始化控制器
+        //  function initControls() {
+        //      Controls = new THREE.OrbitControls(Camera);
+        //  }
+        //  // 初始化陀螺仪
+        //  function initDevices() {
+        //      Devices = new THREE.DeviceOrientationControls(Camera);
+        //  }
+        //  /* 窗口改变事件 */
+        //  function windowChange() {
+        //      initCamera();
+        //      Renderer.setSize(CanvasBody.clientWidth, CanvasBody.clientHeight);
+        //      initDevices();
+        //      initControls();
+        //  }
+        //  /* 控制陀螺仪 */
+        //  function controlDevice(event) {
+        //      if (isDeviceing === 0) {
+        //          isDeviceing = 1;
+        //      } else {
+        //          isDeviceing = 0;
+        //      }
+        //  }
+        //  /* 动画 */
+        //  function animate(time) {
+        //      Renderer.clear();
+        //      isDeviceing === 0 ? Controls.update() : Devices.update();
+        //      Renderer.render(Scene, Camera);
+        //      AnimateFrame = requestAnimationFrame(animate);
+        //  }
+        //    function addimg(image){
+        //  		var r = Math.sqrt(5000 * 1827 / 4 / Math.PI);
+        //      var texture = THREE.ImageUtils.loadTexture(image, {}, function () {
+        //          var geometry = new THREE.SphereGeometry(r, 100, 100);
+        //          var material = new THREE.MeshLambertMaterial({
+        //              map: texture,
+        //              side: THREE.DoubleSide
+        //          });
+        //          var mesh = new THREE.Mesh(geometry, material);
+        //          Scene.add(mesh);
+        //          mesh.position.set(0, 0, 0);
+        //         
+        //      });
+        //  }
+        //  /* 初始化 */
+        //  function init() {
+        //      // 初始化
+        //      initScene();
+        //      initCamera();
+        //      initRenderer();
+        //      initControls();
+        //      initDevices();
+        //      // 初始化绑定陀螺仪
+        //      Devices.connect();
+        //      _window.addEventListener("resize", windowChange, false);
+        //      onDevice.addEventListener("click", controlDevice, false);
+        //      AnimateFrame = requestAnimationFrame(animate);
+        //     
+        //  }
+        //    $('body').bind("touchstart",function(event){
+        //			isDeviceing=0;
+        //		})
+        //    $('body').bind("touchend",function(){
+        //	  	
+        //			isDeviceing=1;
+        //	  });
+        //	  var index=0;
+        //	  var img="sun.jpg";
+        //	  $(".prev").tap(function(){
+        //	  	index++;
+        //	  	if(index==1){
+        //	  		addimg("snow.jpg");
+        //	  	}
+        //	  })
+        //	   $(".next").tap(function(){
+        //	   	index--;
+        //	   	if(index==0){
+        //	   		addimg("sun.jpg");
+        //	   	}
+        //	  	
+        //	  })
+        //  init();
+        //  
+        //  /* 场景内物体 */
+        //  (function () {
+        //  		
+        // 	
+        //    addimg("sun.jpg");
+        //    var al = new THREE.AmbientLight(0xffffff);
+        //          Scene.add(al); 
+        //  })();
+        //
+        //})(document.getElementById("CanvasBody"), window);
+        var index = 0;
+        $(function () {
+            var img = "sun.jpg";
+            if (index == 0) {
+                $("#CanvasBody").vr(img);
+            }
+        })
+    </script>
 </body>
+
 </html>
