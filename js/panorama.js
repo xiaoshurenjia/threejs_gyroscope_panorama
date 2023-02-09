@@ -33,22 +33,23 @@ $.fn.panorama =function (CanvasBody,img) {
     // 初始化陀螺仪
     function initDevices() {
         Devices = new THREE.DeviceOrientationControls(Camera);    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-           // 申请陀螺仪权限
-           DeviceOrientationEvent.requestPermission()
-               .then(permissionState => {
-                 if (permissionState === 'granted') {
-                   // handle data
-                 } else {
-                            // handle denied
-                 }
-               })
-               .catch((err) => {
-                   console.log(err)
-               });
-           } else {
-             // han
-             console.log(typeof DeviceOrientationEvent)
-           }
+       // 申请陀螺仪权限
+       if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+       DeviceOrientationEvent.requestPermission()
+        .then(permissionState => {
+          if (permissionState === 'granted') {
+            // handle data
+          } else {
+                     // handle denied
+          }
+        })
+        .catch((err) => {
+            console.log(err)
+        });
+       } else {
+       // han
+       console.log(typeof DeviceOrientationEvent)
+       }
     }
     /* 窗口改变事件 */
     function windowChange() {
