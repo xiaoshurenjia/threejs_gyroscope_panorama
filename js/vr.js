@@ -46,8 +46,10 @@
 
            if (permissionState === "granted") {
                // Permission granted    
+		alert("Permission granted");
            } else {
                // Permission denied
+		alert("Permission denied");
            }
        } 
     }
