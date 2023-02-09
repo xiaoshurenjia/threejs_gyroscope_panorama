@@ -43,7 +43,7 @@
             Devices = new THREE.DeviceOrientationControls(Camera);
 
             console.log("initDevices")
-            
+
             console.log(typeof (DeviceOrientationEvent.requestPermission))
 
             alert(typeof (DeviceOrientationEvent.requestPermission));
@@ -65,12 +65,12 @@
                     })
                     .catch((err) => {
                         console.log(err);
-                        alert("requestPermission failed: ", err);
+                        alert("requestPermission failed: " + err);
                     });
             } else {
                 // han
-                console.log("DeviceOrientationEvent.requestPermission : "  + typeof DeviceOrientationEvent)
-                alert("DeviceOrientationEvent.requestPermission : "  + typeof DeviceOrientationEvent);
+                console.log("DeviceOrientationEvent.requestPermission : " + typeof DeviceOrientationEvent)
+                alert("DeviceOrientationEvent.requestPermission : " + typeof DeviceOrientationEvent);
             }
         }
 
