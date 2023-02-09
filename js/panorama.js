@@ -39,8 +39,10 @@ $.fn.panorama =function (CanvasBody,img) {
         .then(permissionState => {
           if (permissionState === 'granted') {
             // handle data
+            alert("handle data");
           } else {
-                     // handle denied
+            // handle denied
+            alert("handle denied");
           }
         })
         .catch((err) => {
