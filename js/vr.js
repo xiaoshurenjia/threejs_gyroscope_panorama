@@ -40,18 +40,27 @@
     // 初始化陀螺仪
     function initDevices() {
         Devices = new THREE.DeviceOrientationControls(Camera);
-	// 苹果手机申请陀螺仪权限
-       if (DeviceOrientationEvent && typeof(DeviceOrientationEvent.requestPermission) === "function") {
-           const permissionState = await DeviceOrientationEvent.requestPermission();
-
-           if (permissionState === "granted") {
-               // Permission granted    
-		alert("Permission granted");
-           } else {
-               // Permission denied
-		alert("Permission denied");
-           }
-       } 
+	    
+	    // 苹果手机申请陀螺仪权限
+	    if (DeviceOrientationEvent && typeof (DeviceOrientationEvent.requestPermission) === "function") {
+		DeviceOrientationEvent.requestPermission()
+		    .then(permissionState => {
+			if (permissionState === 'granted') {
+			    // handle data
+			    alert("handle data");
+			} else {
+			    // handle denied
+			    alert("handle denied");
+			}
+		    })
+		    .catch((err) => {
+			console.log(err)
+		    });
+	    } else {
+		// han
+		console.log(typeof DeviceOrientationEvent)
+	    }
+	    
     }
     /* 窗口改变事件 */
     function windowChange() {
