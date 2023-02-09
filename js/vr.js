@@ -40,6 +40,16 @@
     // 初始化陀螺仪
     function initDevices() {
         Devices = new THREE.DeviceOrientationControls(Camera);
+	// 苹果手机申请陀螺仪权限
+       if (DeviceOrientationEvent && typeof(DeviceOrientationEvent.requestPermission) === "function") {
+           const permissionState = await DeviceOrientationEvent.requestPermission();
+
+           if (permissionState === "granted") {
+               // Permission granted    
+           } else {
+               // Permission denied
+           }
+       } 
     }
     /* 窗口改变事件 */
     function windowChange() {
