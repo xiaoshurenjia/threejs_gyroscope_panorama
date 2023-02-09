@@ -34,24 +34,15 @@ $.fn.panorama =function (CanvasBody,img) {
     function initDevices() {
         Devices = new THREE.DeviceOrientationControls(Camera);
        // 申请陀螺仪权限
-       if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-       DeviceOrientationEvent.requestPermission()
-        .then(permissionState => {
-          if (permissionState === 'granted') {
-            // handle data
-            alert("handle data");
-          } else {
-            // handle denied
-            alert("handle denied");
-          }
-        })
-        .catch((err) => {
-            console.log(err)
-        });
-       } else {
-       // han
-       console.log(typeof DeviceOrientationEvent)
-       }
+       if (DeviceOrientationEvent && typeof(DeviceOrientationEvent.requestPermission) === "function") {
+           const permissionState = await DeviceOrientationEvent.requestPermission();
+
+           if (permissionState === "granted") {
+               // Permission granted    
+           } else {
+               // Permission denied
+           }
+       }      
     }
     /* 窗口改变事件 */
     function windowChange() {
