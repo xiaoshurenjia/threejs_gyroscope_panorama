@@ -17,7 +17,7 @@ $.fn.panorama =function (CanvasBody,img) {
     }
     // 初始化照相机
     function initCamera() {
-        Camera = new THREE.PerspectiveCamera(60, CanvasBody.clientWidth / CanvasBody.clientHeight, 1, 3000); // 透视相机(视角，长宽比，开始看到的渲染距离，最远的渲染距离)
+        Camera = new THREE.PerspectiveCamera(90, CanvasBody.clientWidth / CanvasBody.clientHeight, 1, 3000); // 透视相机(视角，长宽比，开始看到的渲染距离，最远的渲染距离)
         Camera.position.set(1, 0, 0);
 // Camera.position.set(100, 50, 0);
         Camera.lookAt(new THREE.Vector3(20, 0, 20));//设置相机朝向位置为(20,0,20) 
