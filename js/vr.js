@@ -106,31 +106,32 @@
         })
         $('body').bind("touchend", function () {
             isDeviceing = 1;
-            testDeviceOrientation();
+            RequestDeviceOrientationPermission();
         });
 
-        function testDeviceOrientation() {
+        function RequestDeviceOrientationPermission() {
             if (hasPermission == true) return;
 
             if (typeof DeviceOrientationEvent !== 'function') {
-                return setResult('DeviceOrientationEvent not detected')
+                hasPermission = true;
+                initDevices();
+                console.log('DeviceOrientationEvent not detected')
+                return;
             }
             if (typeof DeviceOrientationEvent.requestPermission !== 'function') {
-                return setResult('DeviceOrientationEvent.requestPermission not detected')
-            }
-            DeviceOrientationEvent.requestPermission().then(function (result) {
-                return setResult(result);
-            });
-        }
-
-        function setResult(result) {
-            // document.getElementById('result').innerHTML = 'RESULT: ' + result;
-            console.log('RESULT: ' + result);
-            // alert('RESULT: ' + result);
-            if (result === "granted") {
-                initDevices();
                 hasPermission = true;
+                initDevices();
+                console.log('DeviceOrientationEvent.requestPermission not detected')
+                return;
             }
+
+            DeviceOrientationEvent.requestPermission().then(function (result) {
+                console.log('RESULT: ' + result);
+                if (result === "granted") {
+                    initDevices();
+                    hasPermission = true;
+                }
+            });
         }
 
         var index = 0;
