@@ -10,7 +10,7 @@
             var navigatorUserAgent = navigator.userAgent;
             var iPhone = navigatorUserAgent.indexOf("iPhone");
             if (iPhone > -1) {
-                var dpr = Number(window.devicePixelRatio), one_dpr = 1 / dpr
+                var dpr = Number(window.devicePixelRatio), one_dpr = 1 / dpr_window 
             }
             else {
                 var dpr = 1, one_dpr = 1
@@ -89,7 +89,7 @@
     <script src="js/three.min.js"></script>
     <script src="js/Stats.min.js"></script>
     <script type="text/javascript" src="js/zepto.min.js"></script>
-    <script type="text/javascript" src="js/touch.js"></script>
+    <!-- <script type="text/javascript" src="js/touch.js"></script> -->
     <script type="text/javascript" src="js/vr.js"></script>
     <!-- 鼠标控制 （OrbitControls.js） -->
     <script type="text/javascript" src="js/OrbitControls.js"></script>
@@ -98,22 +98,6 @@
 
     <!-- 代码 -->
     <script>
-        // function testDeviceOrientation() {
-        //     if (typeof DeviceOrientationEvent !== 'function') {
-        //         return setResult('DeviceOrientationEvent not detected')
-        //     }
-        //     if (typeof DeviceOrientationEvent.requestPermission !== 'function') {
-        //         return setResult('DeviceOrientationEvent.requestPermission not detected')
-        //     }
-        //     DeviceOrientationEvent.requestPermission().then(function (result) {
-        //         return setResult(result);
-        //     });
-        // }
-
-        // function setResult(result) {
-        //     document.getElementById('result').innerHTML = 'RESULT: ' + result;
-        // }
-
         "use strict";
         //  var Scene = void 0,
         //      Camera = void 0,
@@ -242,12 +226,14 @@
         //
         //})(document.getElementById("CanvasBody"), window);
         var index = 0;
-        $(function () {
-            var img = "sun.jpg";
-            if (index == 0) {
-                $("#CanvasBody").vr(img);
-            }
-        })
+        // $(function () {
+        //     var img = "sun.jpg";
+        //     if (index == 0) {
+        //         $("#CanvasBody").vr(img);
+        //     }
+        // })
+        var img = "sun.jpg";
+        vr(img)
     </script>
 </body>
 

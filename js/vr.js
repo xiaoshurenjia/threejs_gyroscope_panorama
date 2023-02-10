@@ -1,5 +1,5 @@
-(function (CanvasBody, _window) {
-    $.fn.vr = function (image) {
+ function vr (image) {
+    const CanvasBody = document.getElementById('CanvasBody');
         var Scene = void 0,
             Camera = void 0,
             Renderer = void 0,
@@ -85,9 +85,7 @@
                 var mesh = new THREE.Mesh(geometry, material);
                 Scene.add(mesh);
                 mesh.position.set(0, 0, 0);
-
             });
-
         }
         /* 初始化 */
         function init() {
@@ -99,14 +97,14 @@
             // initDevices();
             // 初始化绑定陀螺仪
             // Devices.connect();
-            _window.addEventListener("resize", windowChange, false);
+            window.addEventListener("resize", windowChange, false);
             onDevice.addEventListener("click", controlDevice, false);
             AnimateFrame = requestAnimationFrame(animate);
         }
-        $('body').bind("touchstart", function (event) {
+        document.body.addEventListener("touchstart", function (event) {
             isDeviceing = 0;
         })
-        $('body').bind("touchend", function () {
+        document.body.addEventListener("touchend", function () {
             isDeviceing = 1;
             RequestDeviceOrientationPermission();
         });
@@ -136,22 +134,7 @@
             });
         }
 
-        var index = 0;
-        var img = "sun.jpg";
-        $(".prev").tap(function () {
-            index++;
-            alert(".prev");
-            if (index == 1) {
-                addimg("snow.jpg");
-            }
-        })
-        $(".next").tap(function () {
-            index--;
-            alert(".next");
-            if (index == 0) {
-                addimg("sun.jpg");
-            }
-        })
+  
 
         init();
 
@@ -162,4 +145,4 @@
             Scene.add(al);
         })();
     }
-})(CanvasBody, window);
+
