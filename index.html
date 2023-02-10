@@ -4,29 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit">
-    <script>
-        "use strict";
-        (function (_window) {
-            var navigatorUserAgent = navigator.userAgent;
-            var iPhone = navigatorUserAgent.indexOf("iPhone");
-            if (iPhone > -1) {
-                var dpr = Number(window.devicePixelRatio), one_dpr = 1 / dpr_window
-            }
-            else {
-                var dpr = 1, one_dpr = 1
-            }
-            var writeText = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=" + one_dpr + ",maximum-scale=" + one_dpr + ",minimum-scale=" + one_dpr + ",user-scalable=no\">\n        <meta name=\"'flexible\" content=\"initial-dpr=" + dpr + "\">";
-            document.write(writeText);
-            var html = document.getElementsByTagName("html");
-            var F0 = 75; html[0].setAttribute("data-dpr", dpr);
-            var getFontSize = function getFontSize() {
-                var windowWidth = window.innerWidth;
-                html[0].style.fontSize = F0 * windowWidth / 750 + "px"
-            };
-            getFontSize();
-            _window.addEventListener("resize", getFontSize, false)
-        })(window);
-    </script>
 
     <style>
         body {
@@ -45,70 +22,22 @@
             position: relative;
         }
 
-        /* #onDevice {
+        #PanoCanvas {
             position: absolute;
-            bottom: 500;
-            right: 0;
-            z-index: 2;
-            padding: 12px 18px;
-            font-size: 20px;
-            border: 1px solid #ddd;
-            background-color: #fff;
-            cursor: pointer;
-            -webkit-appearance: none;
-        } */
-
-        #onDevice {
             width: 100%;
             height: 50%;
-            position: absolute;
-            z-index: 99;
-            top: 50px;
-            left: 50px;
-            right: 50px;
-        }
-
-        .marker-div .img-one {
-            width: 30%;
-        }
-
-        .prev {
-            background-image: url(images/arrows.png);
-            width: 60px;
-            height: 75px;
-            background-position: 4px 4px;
-            background-repeat: no-repeat;
-            position: absolute;
-            z-index: 99;
-            top: 45%;
-            left: 0px;
-        }
-
-        .next {
-            background-image: url(images/arrows.png);
-            width: 60px;
-            height: 75px;
-            background-position: -83px 4px;
-            background-repeat: no-repeat;
-            position: absolute;
-            z-index: 99;
-            top: 45%;
-            right: 0px;
         }
     </style>
 </head>
 
 <body>
     <div id="CanvasBody">
-        <div id="onDevice"></div>
-        <!--<input id="onDevice" type="button" value="">-->
-        <!-- <img src="hand.gif" style="width: 4%;position: absolute;left: 48%;top: 48%;" /> -->
-        <!-- <div class="prev"></div> -->
-        <!-- <div class="next"></div> -->
+        <div id="PanoCanvas"></div>
     </div>
+
     <script src="js/three.min.js"></script>
     <script src="js/Stats.min.js"></script>
-    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <!-- <script type="text/javascript" src="js/zepto.min.js"></script> -->
     <!-- <script type="text/javascript" src="js/touch.js"></script> -->
     <script type="text/javascript" src="js/vr.js"></script>
     <!-- 鼠标控制 （OrbitControls.js） -->
@@ -119,7 +48,7 @@
     <!-- 代码 -->
     <script>
         var panoImg = "sun.jpg";
-        var panoCanvas = document.getElementById('onDevice');
+        var panoCanvas = document.getElementById('PanoCanvas');
         vr(panoImg, panoCanvas)
     </script>
 </body>
