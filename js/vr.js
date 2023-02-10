@@ -1,6 +1,4 @@
-function vr(image) {
-    const CanvasBody = document.getElementById('CanvasBody');
-
+function vr(panoImage, panoCanvas) {
     var Scene = void 0,
         Camera = void 0,
         Renderer = void 0,
@@ -19,16 +17,16 @@ function vr(image) {
     }
     // 初始化照相机
     function initCamera() {
-        Camera = new THREE.PerspectiveCamera(90, CanvasBody.clientWidth / CanvasBody.clientHeight, 1, 3000);
+        Camera = new THREE.PerspectiveCamera(80, panoCanvas.clientWidth / panoCanvas.clientHeight, 1, 3000);
         Camera.position.set(1, 0, 0);
         Camera.lookAt({ x: 200, y: 0, z: 0 });
     }
     // 初始化渲染器
     function initRenderer() {
         Renderer = new THREE.WebGLRenderer();
-        Renderer.setSize(CanvasBody.clientWidth, CanvasBody.clientHeight);
+        Renderer.setSize(panoCanvas.clientWidth, panoCanvas.clientHeight);
         Renderer.setClearColor(0x000000, 1);
-        CanvasBody.appendChild(Renderer.domElement);
+        panoCanvas.appendChild(Renderer.domElement);
     }
     // 初始化监视器
     function initFpsStats() {
@@ -38,7 +36,7 @@ function vr(image) {
     }
     // 初始化控制器
     function initControls() {
-        Controls = new THREE.OrbitControls(Camera);
+        Controls = new THREE.OrbitControls(Camera, panoCanvas);
     }
     // 初始化陀螺仪
     function initDevices() {
@@ -49,7 +47,7 @@ function vr(image) {
     /* 窗口改变事件 */
     function windowChange() {
         initCamera();
-        Renderer.setSize(CanvasBody.clientWidth, CanvasBody.clientHeight);
+        Renderer.setSize(panoCanvas.clientWidth, panoCanvas.clientHeight);
         initControls();
         // 窗口变化后需要重新申请陀螺仪权限
         hasGyroPermission = false;
@@ -90,7 +88,7 @@ function vr(image) {
     }
     /* 初始化场景内物体 */
     function initSceneObjects() {
-        addimg(image); // 全景球
+        addimg(panoImage); // 全景球
         var al = new THREE.AmbientLight(0xffffff); // 灯光
         Scene.add(al);
     };
@@ -128,15 +126,15 @@ function vr(image) {
         initCamera();
         initRenderer();
         initControls();
-        initFpsStats();
+        // initFpsStats();
         initSceneObjects();
 
-        window.addEventListener("resize", windowChange, false);
-        window.addEventListener("click", controlDevice, false);
-        document.body.addEventListener("touchstart", function (event) {
+        panoCanvas.addEventListener("resize", windowChange, false);
+        panoCanvas.addEventListener("click", controlDevice, false);
+        panoCanvas.addEventListener("touchstart", function (event) {
             isDeviceing = 0;
         })
-        document.body.addEventListener("touchend", function () {
+        panoCanvas.addEventListener("touchend", function () {
             isDeviceing = 1;
             requestDeviceOrientationPermission();
         });
