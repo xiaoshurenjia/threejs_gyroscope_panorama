@@ -9,6 +9,8 @@
             Devices = void 0; // 场景，照相机，渲染器，FPS监视器，渲染定时器，控制器，陀螺仪
         var onDevice = document.getElementById("onDevice");
         var isDeviceing = 1; // 陀螺仪状态
+        var hasPermission = false;
+
         /* 初始化函数 */
         // 初始化场景
         function initScene() {
@@ -41,39 +43,7 @@
         // 初始化陀螺仪
         function initDevices() {
             Devices = new THREE.DeviceOrientationControls(Camera);
-
-            console.log("initDevices")
-
-            console.log(typeof (DeviceOrientationEvent.requestPermission))
-
-            alert(typeof (DeviceOrientationEvent.requestPermission));
-
-            // 苹果手机申请陀螺仪权限
-            if (DeviceOrientationEvent && typeof (DeviceOrientationEvent.requestPermission) === "function") {
-                DeviceOrientationEvent.requestPermission()
-                    .then(permissionState => {
-
-                        if (permissionState === 'granted') {
-                            // handle data
-                            alert("handle data");
-                            console.log("handle data")
-                        } else {
-                            // handle denied
-                            alert("handle denied");
-                            console.log("handle denied");
-                        }
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                        alert("requestPermission failed: " + err);
-                    });
-            } else {
-                // han
-                console.log("DeviceOrientationEvent.requestPermission : " + typeof DeviceOrientationEvent)
-                alert("DeviceOrientationEvent.requestPermission : " + typeof DeviceOrientationEvent);
-            }
-
-
+            Devices.connect();
         }
 
         /* 窗口改变事件 */
@@ -122,27 +92,48 @@
             initControls();
             // initDevices();
             // 初始化绑定陀螺仪
-            Devices.connect();
+            // Devices.connect();
             _window.addEventListener("resize", windowChange, false);
             onDevice.addEventListener("click", controlDevice, false);
             AnimateFrame = requestAnimationFrame(animate);
-
         }
         $('body').bind("touchstart", function (event) {
             isDeviceing = 0;
         })
         $('body').bind("touchend", function () {
-
             isDeviceing = 1;
+            testDeviceOrientation();
         });
 
+        function testDeviceOrientation() {
+            if (hasPermission == true) return;
+
+            if (typeof DeviceOrientationEvent !== 'function') {
+                return setResult('DeviceOrientationEvent not detected')
+            }
+            if (typeof DeviceOrientationEvent.requestPermission !== 'function') {
+                return setResult('DeviceOrientationEvent.requestPermission not detected')
+            }
+            DeviceOrientationEvent.requestPermission().then(function (result) {
+                return setResult(result);
+            });
+        }
+
+        function setResult(result) {
+            // document.getElementById('result').innerHTML = 'RESULT: ' + result;
+            console.log('RESULT: ' + result);
+            alert('RESULT: ' + result);
+            if (result === "granted") {
+                initDevices();
+                hasPermission = true;
+            }
+        }
 
         var index = 0;
         var img = "sun.jpg";
         $(".prev").tap(function () {
             index++;
             alert(".prev");
-            initDevices();
             if (index == 1) {
                 addimg("snow.jpg");
             }
