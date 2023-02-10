@@ -52,6 +52,8 @@
             Renderer.setSize(CanvasBody.clientWidth, CanvasBody.clientHeight);
             // initDevices();
             initControls();
+            hasPermission = false;
+            RequestDeviceOrientationPermission();
         }
         /* 控制陀螺仪 */
         function controlDevice(event) {
