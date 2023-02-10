@@ -64,7 +64,11 @@
         /* 动画 */
         function animate(time) {
             Renderer.clear();
-            isDeviceing === 0 ? Controls.update() : Devices.update();
+            if (isDeviceing === 0) {
+                Controls.update()
+            } else {
+                if (hasPermission == true) Devices.update();
+            }
             Renderer.render(Scene, Camera);
             AnimateFrame = requestAnimationFrame(animate);
         }
@@ -122,7 +126,7 @@
         function setResult(result) {
             // document.getElementById('result').innerHTML = 'RESULT: ' + result;
             console.log('RESULT: ' + result);
-            alert('RESULT: ' + result);
+            // alert('RESULT: ' + result);
             if (result === "granted") {
                 initDevices();
                 hasPermission = true;
