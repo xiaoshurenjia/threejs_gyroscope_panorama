@@ -1,3 +1,8 @@
+/**
+ * 显示全景图，带有手机陀螺仪控制
+ * @param {string } panoImage 全景图下载URL
+ * @param {*} panoCanvas 渲染全景图的Canvas
+ */
 function vr(panoImage, panoCanvas) {
     var Scene = void 0,
         Camera = void 0,
@@ -72,6 +77,7 @@ function vr(panoImage, panoCanvas) {
         Renderer.render(Scene, Camera);
         AnimateFrame = requestAnimationFrame(animate);
     }
+
     /* 添加全景球 */
     function addimg(image) {
         var r = Math.sqrt(5000 * 1827 / 4 / Math.PI);
@@ -86,9 +92,27 @@ function vr(panoImage, panoCanvas) {
             mesh.position.set(0, 0, 0);
         });
     }
+
+    /* 添加全景球 */
+    function addimgURL(textureURL) {
+        var loader = new THREE.TextureLoader();
+        loader.setCrossOrigin('Anonymous');
+        var texture = loader.load(textureURL, (texture) => {
+            var r = 1000;
+            var geometry = new THREE.SphereGeometry(r, 100, 100);
+            var material = new THREE.MeshLambertMaterial({
+                map: texture,
+                side: THREE.DoubleSide
+            });
+            var mesh = new THREE.Mesh(geometry, material);
+            Scene.add(mesh);
+            mesh.position.set(0, 0, 0);
+        });
+    }
     /* 初始化场景内物体 */
     function initSceneObjects() {
-        addimg(panoImage); // 全景球
+        // addimg(panoImage); // 全景球
+        addimgURL(panoImage);
         var al = new THREE.AmbientLight(0xffffff); // 灯光
         Scene.add(al);
     };
