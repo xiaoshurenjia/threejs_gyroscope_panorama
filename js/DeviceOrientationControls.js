@@ -7,6 +7,7 @@ THREE.DeviceOrientationControls = function (object) {
 	this.alpha = 0;
 	this.alphaOffsetAngle = 0;
 	var onDeviceOrientationChangeEvent = function (event) {
+		console.log("onDeviceOrientationChangeEvent: ", event);
 		scope.deviceOrientation = event
 	};
 	var onScreenOrientationChangeEvent = function () {
